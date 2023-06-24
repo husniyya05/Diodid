@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,800&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+header{
+    background-color: black;
+}
+.display-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+
+}
+header .nav-items{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+header .nav-items a{
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 500;
+}
+header .iconbox i{
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+header .iconbox{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.contact form input{
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    width: 30%;
+    
+}
+.contact h1{
+    text-align: center;
+    margin: 30px 0;
+}
+.contact form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-direction: column;
+}
+.contact form input:hover{
+    margin-left: 10px;
+    transition: .5s ease;
+    
+}
+.contact form input:not(:hover){
+    transition: .5s ease;
+}
+.contact form input:focus{
+    outline: none;
+}
