@@ -72,3 +72,7 @@ header .iconbox{
 table{
     font-size: 18px;
 }
+
+.table table{
+    width: 100%;
+}
