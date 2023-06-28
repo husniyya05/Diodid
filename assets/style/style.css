@@ -206,11 +206,11 @@ table {
   -o-transform: rotate(0);
 }
 .scale img:hover{
-    transform: scale()0.9;
-    -webkit-transform: scale()0.9;
-    -moz-transform: scale()0.9;
-    -ms-transform: scale()0.9;
-    -o-transform: scale()0.9;
+    transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
     transition: .5s ease;
     -webkit-transition: .5s ease;
     -moz-transition: .5s ease;
