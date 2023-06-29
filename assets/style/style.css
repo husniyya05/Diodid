@@ -10,11 +10,7 @@ body {
 header {
   background-color: black;
 }
-/* header{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-} */
+
 .display-flex {
   display: flex;
   justify-content: space-between;
@@ -94,9 +90,7 @@ header .iconbox {
 .contact form input:focus {
   outline: none;
 }
-/* .table ,td ,th {
-    border: 1px solid black;
-} */
+
 table {
   font-size: 18px;
 }
@@ -228,4 +222,45 @@ table {
     -moz-transition: .5s ease;
     -ms-transition: .5s ease;
     -o-transition: .5s ease;
+}
+.black {
+  background-color: #080a0c;
+  color: #fff;
+}
+.black h1{
+  font-size: 50px;
+  font-weight: 100;
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+.black .positionbox h2{
+  font-size: 24px;
+  margin: 20px ;
+}
+.black .positionbox h3{
+  font-size: 17px;
+  margin: 15px;
+  
+}
+.black .positionbox{
+  padding: 32px 48px;
+  height: 300px;
+  width: 420px;
+  margin: 20px 0 0 ;
+
+}
+.black .iconbox2 i{
+  font-size: 35px;
+}
+.black .iconbox2{
+  margin: 30px 0 20px;
+}
+.black .positionbox{
+border: 1px solid #090c0f;
+background-color: #0f1216;
+}
+
+.positionbox :hover{
+  transform: translateY(20px);
 }
