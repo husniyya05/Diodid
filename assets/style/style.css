@@ -1,12 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,800&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "Open Sans", sans-serif;
 }
+
 header {
   background-color: black;
 }
@@ -17,42 +20,47 @@ header {
   align-items: center;
   padding: 0 50px;
 }
+
 header .nav-items {
   display: flex;
   gap: 20px;
   align-items: center;
 }
+
 header .nav-items a {
   color: white;
   text-decoration: none;
   font-size: 22px;
   font-weight: 500;
 }
-header .nav-items a:hover{
-    transform: translateY(-10px);
-    -webkit-transform: translateY(-10px);
-    -moz-transform: translateY(-10px);
-    -ms-transform: translateY(-10px);
-    -o-transform: translateY(-10px);
-    transition: .5s ease;
-    -webkit-transition: .5s ease;
-    -moz-transition: .5s ease;
-    -ms-transition: .5s ease;
-    -o-transition: .5s ease;
-    color: rgb(216, 124, 19);
+
+header .nav-items a:hover {
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  -o-transform: translateY(-10px);
+  transition: .5s ease;
+  -webkit-transition: .5s ease;
+  -moz-transition: .5s ease;
+  -ms-transition: .5s ease;
+  -o-transition: .5s ease;
+  color: rgb(216, 124, 19);
 }
-header .nav-items a:not(:hover){
-    transform: translateY(0);
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -o-transform: translateY(0);
-    transition: .5s ease;
-    -webkit-transition: .5s ease;
-    -moz-transition: .5s ease;
-    -ms-transition: .5s ease;
-    -o-transition: .5s ease;
+
+header .nav-items a:not(:hover) {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transition: .5s ease;
+  -webkit-transition: .5s ease;
+  -moz-transition: .5s ease;
+  -ms-transition: .5s ease;
+  -o-transition: .5s ease;
 }
+
 header .iconbox i {
   color: white;
   font-size: 22px;
@@ -64,15 +72,18 @@ header .iconbox {
   gap: 20px;
   align-items: center;
 }
+
 .contact form input {
   border: 1px solid #ccc;
   padding: 8px 10px;
   width: 30%;
 }
+
 .contact h1 {
   text-align: center;
   margin: 30px 0;
 }
+
 .contact form {
   display: flex;
   justify-content: center;
@@ -80,13 +91,16 @@ header .iconbox {
   gap: 15px;
   flex-direction: column;
 }
+
 .contact form input:hover {
   margin-left: 10px;
   transition: 0.5s ease;
 }
+
 .contact form input:not(:hover) {
   transition: 0.5s ease;
 }
+
 .contact form input:focus {
   outline: none;
 }
@@ -110,22 +124,25 @@ table {
   -ms-transform: skew(20deg);
   -o-transform: skew(20deg); */
 }
-.box-relative:hover{
-    transform: translateX(10px);
-    -webkit-transform: translateX(10px);
-    -moz-transform: translateX(10px);
-    -ms-transform: translateX(10px);
-    transition: .5s ease;
-    -o-transform: translateX(10px);
-    -webkit-transition: .5s ease;
-    -moz-transition: .5s ease;
-    -ms-transition: .5s ease;
-    -o-transition: .5s ease;
+
+.box-relative:hover {
+  transform: translateX(10px);
+  -webkit-transform: translateX(10px);
+  -moz-transform: translateX(10px);
+  -ms-transform: translateX(10px);
+  transition: .5s ease;
+  -o-transform: translateX(10px);
+  -webkit-transition: .5s ease;
+  -moz-transition: .5s ease;
+  -ms-transition: .5s ease;
+  -o-transition: .5s ease;
 }
-.box-relative:hover .absolute{
-    right: 100px;
-    bottom: 100px;
+
+.box-relative:hover .absolute {
+  right: 100px;
+  bottom: 100px;
 }
+
 .absolute {
   background-color: black;
   position: absolute;
@@ -135,6 +152,7 @@ table {
   bottom: 150px;
   z-index: 4;
 }
+
 .absolute2 {
   background-color: yellow;
   position: absolute;
@@ -144,6 +162,7 @@ table {
   bottom: 130px;
   z-index: 3;
 }
+
 .absolute-text {
   font-size: 20px;
   position: absolute;
@@ -152,6 +171,7 @@ table {
   top: 200px;
   z-index: 5;
 }
+
 .fixed {
   position: fixed;
   right: 10px;
@@ -168,6 +188,7 @@ table {
   justify-content: center;
   align-items: center;
 }
+
 .fixed i {
   font-size: 35px;
   color: #fff;
@@ -187,6 +208,7 @@ table {
   -o-transition: 0.5s ease;
   cursor: pointer;
 }
+
 .fixed:not(:hover) {
   transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
@@ -199,68 +221,145 @@ table {
   -ms-transform: rotate(0);
   -o-transform: rotate(0);
 }
-.scale img:hover{
-    transform: scale(0.9);
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    -o-transform: scale(0.9);
-    transition: .5s ease;
-    -webkit-transition: .5s ease;
-    -moz-transition: .5s ease;
-    -ms-transition: .5s ease;
-    -o-transition: .5s ease;
+
+.scale img:hover {
+  transform: scale(0.9);
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transition: .5s ease;
+  -webkit-transition: .5s ease;
+  -moz-transition: .5s ease;
+  -ms-transition: .5s ease;
+  -o-transition: .5s ease;
 }
-.scale img:not(:hover){
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transition: .5s ease;
-    -webkit-transition: .5s ease;
-    -moz-transition: .5s ease;
-    -ms-transition: .5s ease;
-    -o-transition: .5s ease;
+
+.scale img:not(:hover) {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: .5s ease;
+  -webkit-transition: .5s ease;
+  -moz-transition: .5s ease;
+  -ms-transition: .5s ease;
+  -o-transition: .5s ease;
 }
+
 .black {
   background-color: #080a0c;
   color: #fff;
 }
-.black h1{
+
+.black h1 {
   font-size: 50px;
   font-weight: 100;
   margin: 30px 0;
   display: flex;
   justify-content: center;
 }
-.black .positionbox h2{
+
+.black .positionbox h2 {
   font-size: 24px;
-  margin: 20px ;
+  margin: 20px;
 }
-.black .positionbox h3{
+
+.black .positionbox h3 {
   font-size: 17px;
   margin: 15px;
-  
+
 }
-.black .positionbox{
+
+.black .positionbox {
   padding: 32px 48px;
   height: 300px;
   width: 420px;
-  margin: 20px 0 0 ;
+  margin: 20px 0 0;
 
 }
-.black .iconbox2 i{
+
+.black .iconbox2 i {
   font-size: 35px;
 }
-.black .iconbox2{
+
+.black .iconbox2 {
   margin: 30px 0 20px;
 }
-.black .positionbox{
-border: 1px solid #090c0f;
-background-color: #0f1216;
+
+.black .positionbox {
+  border: 1px solid #090c0f;
+  background-color: #0f1216;
 }
 
-.positionbox :hover{
+.positionbox :hover {
   transform: translateY(20px);
+  border: 2px solid aqua;
+}
+
+.positionbox .iconbox2 i :hover {
+  color: aqua;
+}
+
+.insihing {
+  background-color: #080a0c;
+  color: #fff;
+  padding: 100px 0 80px;
+}
+
+.insihing h1 {
+  font-size: 50px;
+  margin: 0 0 40px;
+}
+
+.insihing .h6 {
+  background-color: #15C7E7;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  color: #080a0c;
+  padding: 9px 0 0;
+
+}
+
+.h6 h6 {
+  font-size: 13px;
+}
+
+.zindex {
+  background-color: #15C7E7;
+  border-radius: 15px;
+  padding: 10px 10px 0;
+}
+
+.zindex h6 {
+  font-size: 11px;
+  color: #080a0c;
+}
+
+.robot {
+  position: relative;
+  width: 270px;
+  height: 600px;
+  z-index: 1;
+
+}
+
+.zindex {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 0%;
+}
+
+.robot img {
+  border-radius: 12px 12px 0 0;
+}
+.robot h4, h5{
+  font-size: 15px;
+  margin: 20px 15px;
+}
+.robot h4{
+  color: #15C7E7;
 }
