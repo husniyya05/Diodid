@@ -411,14 +411,16 @@ h5 {
   .black .positionbox h3 {
     font-size: 13px;
   }
-  .robot h5{
+  .robot h5 {
     font-size: 10px;
   }
-  .robot h4{
+  .robot h4 {
     font-size: 11px;
   }
-  .robot .zindex h6{
+  .robot .zindex h6 {
     font-size: 10px;
   }
+  .home {
+    padding-top: 40px;
+  }
 }
-
