@@ -1,9 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,800&display=swap');
 :root {
   --black: black;
   --orange: rgb(216, 124, 19);
   --green: rgb(40, 107, 40);
+  --blue: #15C7E7;
+  --white: #fff
 }
 
 * {
@@ -423,4 +425,192 @@ h5 {
   .home {
     padding-top: 40px;
   }
+  .tapp h1{
+    font-size: 10px;
+    padding: 75px 0 30px;
+
+  }
+  .tapp p{
+    font-size: 10px;
+  }
+  .tapp img{
+    height: 200px;
+    width: 300px;
+  }
+}
+.tapp{
+  background-color: var(--black);
+  color: white;
+  padding: 100px 0 80px; 
+}
+.tapp h1{
+  font-size: 48px;
+  font-weight: 200;
+  padding: 60px 0;
+  font-family: 'MuseoModerno', cursive;
+
+}
+.tapp p{
+  padding: 60px 80px 60px 0;
+  font-weight: 200;
+}
+.tapp img{
+  width: 1216px;
+  height: 550px;
+  border-radius: 10px;
+}
+.trust{
+  color: white;
+}
+.trust .our h6{
+  color: var(--blue);
+  font-size: 14px;
+}
+.trust .our h1{
+  font-size: 48px;
+}
+.trust .our p{
+  font-size: 16px;
+  margin-bottom: 0.9rem;
+}
+.trust .iconbox i{
+  color: var(--blue);
+  font-size: 60px;
+  padding: 20px 10px 0 0;
+
+}
+.trust .premium h6{
+  font-size: 72px;
+  font-weight: 300;
+}
+.trust .premium h5{
+  font-size: 15px;
+
+}
+.trust .sum h6{
+  color: var(--blue);
+  padding: 35px 0 0 0 ;
+
+}
+.trust{
+  padding: 150px 0;
+}
+.trust{
+  background-image: url(/assets/img/47e3ed06-57b1-48f7-9ad9-8d759abb779a.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.value{
+  text-align: center;
+  padding: 128px 0 ;
+  background-color: var(--black);
+  color:var(--white)
+}
+.value .our h6{
+  color: var(--blue);
+  font-weight: 200;
+}
+.value .our h1{
+  font-family: 'MuseoModerno', cursive;
+  font-size: 48px;
+  font-weight: 300;
+  margin-bottom: 70px;
+}
+.value .power{
+  padding: 48px 32px;
+  font-size: 16px;
+  border: 1px solid var(--black);
+
+}
+.value .power .iconbox i{
+  font-size: 40px;
+}
+.value .power:hover{
+  transform: translateY(-20px);
+  border: 2px solid aqua;
+  border-radius: 10px;
+  transition: 0.5s ease;
+}
+.value .power:not(:hover){
+  transform: translateY(0);
+  transition: 0.5s ease;
+}
+
+
+.value :hover .power .iconbox i{
+  color: aqua;
+}
+.meet{
+  padding: 128px 0;
+  background-color: var(--black);
+  color: white;
+}
+.meet h6{
+  font-size: 14px;
+  color: var(--blue);
+  font-weight: 200;
+  padding: 20px 0;
+}
+.meet h1{
+  font-size: 48px;
+  font-family: 'MuseoModerno', cursive;
+  font-weight: 200;
+}
+.meet h5{
+  font-size: 16px;
+  font-weight: 200;
+  padding: 0 0 30px;
+}
+.meet a{
+  text-decoration: none;
+  color: var(--black);
+  border: 1px solid var(--blue);
+  padding: 15px 30px;
+  background-color: var(--blue);
+  font-size: 16;
+  border-radius: 7px;
+  font-weight: 500;
+}
+.meet img{
+  width: 290px;
+  height: 387px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 10px;
+}
+.news {
+  padding: 80px 0 32px;
+  background-color: var(--black);
+  color: var(--white);
+  text-align: center;
+}
+.news h1{
+  font-size: 48px;
+  font-weight: 300;
+  font-family: 'MuseoModerno', cursive;
+
+}
+.news .email form {
+  background-color: var(--green);
+  width: 400px;
+  height: 70px;
+}
+.news .button form {
+  background-color: var(--blue);
+  padding: 20px 20px;
+  color:var(--black);
+  width: 240px;
+  height: 70px; 
+  border-radius: 5px;
+  
+}
+.foot {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 80px;
+}
+.foot .box1{
+  width: 150px;
 }
