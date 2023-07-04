@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,800&display=swap");
 :root {
-  --black: black;
+  --black: #080a0c;
   --orange: rgb(216, 124, 19);
   --green: rgb(40, 107, 40);
-  --blue: #15C7E7;
-  --white: #fff
+  --blue: #15c7e7;
+  --white: #fff;
 }
 
 * {
@@ -231,32 +231,6 @@ table {
   -o-transform: rotate(0);
 }
 
-.scale img:hover {
-  transform: scale(0.9);
-  -webkit-transform: scale(0.9);
-  -moz-transform: scale(0.9);
-  -ms-transform: scale(0.9);
-  -o-transform: scale(0.9);
-  transition: 0.5s ease;
-  -webkit-transition: 0.5s ease;
-  -moz-transition: 0.5s ease;
-  -ms-transition: 0.5s ease;
-  -o-transition: 0.5s ease;
-}
-
-.scale img:not(:hover) {
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transition: 0.5s ease;
-  -webkit-transition: 0.5s ease;
-  -moz-transition: 0.5s ease;
-  -ms-transition: 0.5s ease;
-  -o-transition: 0.5s ease;
-}
-
 .black {
   background-color: #080a0c;
   color: #fff;
@@ -425,144 +399,160 @@ h5 {
   .home {
     padding-top: 40px;
   }
-  .tapp h1{
+  .tapp h1 {
     font-size: 10px;
     padding: 75px 0 30px;
-
   }
-  .tapp p{
+  .tapp p {
     font-size: 10px;
   }
-  .tapp img{
+  .tapp img {
     height: 200px;
     width: 300px;
   }
 }
-.tapp{
+.tapp {
   background-color: var(--black);
   color: white;
-  padding: 100px 0 80px; 
+  padding: 100px 0 80px;
 }
-.tapp h1{
+.tapp h1 {
   font-size: 48px;
   font-weight: 200;
   padding: 60px 0;
-  font-family: 'MuseoModerno', cursive;
-
+  font-family: "MuseoModerno", cursive;
 }
-.tapp p{
+.tapp p {
   padding: 60px 80px 60px 0;
   font-weight: 200;
 }
-.tapp img{
-  width: 1216px;
+.tapp .tap-section-relative {
+  position: relative;
+}
+.tapp .tap-section-relative img {
   height: 550px;
   border-radius: 10px;
+  width: 100%;
 }
-.trust{
+.tapp .tap-section-relative .icon-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tapp .tap-section-relative .icon-box i {
+  color: #000;
+  font-size: 20px;
+}
+.trust {
   color: white;
 }
-.trust .our h6{
+.trust .our h6 {
   color: var(--blue);
   font-size: 14px;
 }
-.trust .our h1{
+.trust .our h1 {
   font-size: 48px;
 }
-.trust .our p{
+.trust .our p {
   font-size: 16px;
   margin-bottom: 0.9rem;
 }
-.trust .iconbox i{
+.trust .iconbox i {
   color: var(--blue);
   font-size: 60px;
   padding: 20px 10px 0 0;
-
 }
-.trust .premium h6{
+.trust .premium h6 {
   font-size: 72px;
   font-weight: 300;
 }
-.trust .premium h5{
+.trust .premium h5 {
   font-size: 15px;
-
 }
-.trust .sum h6{
+.trust .sum h6 {
   color: var(--blue);
-  padding: 35px 0 0 0 ;
-
+  padding: 35px 0 0 0;
 }
-.trust{
+.trust {
   padding: 150px 0;
 }
-.trust{
+.trust {
   background-image: url(/assets/img/47e3ed06-57b1-48f7-9ad9-8d759abb779a.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
-.value{
+.value {
   text-align: center;
-  padding: 128px 0 ;
+  padding: 128px 0 0 0;
   background-color: var(--black);
-  color:var(--white)
+  color: var(--white);
 }
-.value .our h6{
+.value .our h6 {
   color: var(--blue);
   font-weight: 200;
 }
-.value .our h1{
-  font-family: 'MuseoModerno', cursive;
+.value .our h1 {
+  font-family: "MuseoModerno", cursive;
   font-size: 48px;
   font-weight: 300;
   margin-bottom: 70px;
 }
-.value .power{
+.value .power {
   padding: 48px 32px;
   font-size: 16px;
   border: 1px solid var(--black);
-
 }
-.value .power .iconbox i{
+.value .power .iconbox i {
   font-size: 40px;
 }
-.value .power:hover{
+.value .power:hover {
   transform: translateY(-20px);
   border: 2px solid aqua;
   border-radius: 10px;
   transition: 0.5s ease;
 }
-.value .power:not(:hover){
+.value .power:not(:hover) {
   transform: translateY(0);
   transition: 0.5s ease;
 }
 
-
-.value :hover .power .iconbox i{
+.value .power:hover .iconbox i {
   color: aqua;
 }
-.meet{
+.meet {
   padding: 128px 0;
   background-color: var(--black);
   color: white;
 }
-.meet h6{
+.meet h6 {
   font-size: 14px;
   color: var(--blue);
   font-weight: 200;
   padding: 20px 0;
 }
-.meet h1{
+.meet h1 {
   font-size: 48px;
-  font-family: 'MuseoModerno', cursive;
+  font-family: "MuseoModerno", cursive;
   font-weight: 200;
 }
-.meet h5{
+.meet h5 {
   font-size: 16px;
   font-weight: 200;
   padding: 0 0 30px;
 }
-.meet a{
+.meet a {
   text-decoration: none;
   color: var(--black);
   border: 1px solid var(--blue);
@@ -572,7 +562,7 @@ h5 {
   border-radius: 7px;
   font-weight: 500;
 }
-.meet img{
+.meet img {
   width: 290px;
   height: 387px;
   display: flex;
@@ -586,11 +576,10 @@ h5 {
   color: var(--white);
   text-align: center;
 }
-.news h1{
+.news h1 {
   font-size: 48px;
   font-weight: 300;
-  font-family: 'MuseoModerno', cursive;
-
+  font-family: "MuseoModerno", cursive;
 }
 .news .email form {
   background-color: var(--green);
@@ -600,17 +589,39 @@ h5 {
 .news .button form {
   background-color: var(--blue);
   padding: 20px 20px;
-  color:var(--black);
+  color: var(--black);
   width: 240px;
-  height: 70px; 
+  height: 70px;
   border-radius: 5px;
-  
 }
 .foot {
   background-color: var(--black);
   color: var(--white);
   padding: 80px;
 }
-.foot .box1{
+.foot .box1 {
   width: 150px;
+}
+.newsletter-form{
+  width: 80%;
+}
+.newsletter-form input {
+  border-bottom: 1px solid #1a1e23;
+  padding: 10px 15px;
+  border-width: 0px 0px 1px 0px;
+  background-color: transparent;
+  width: 80%;
+}
+.newsletter-form .newsletter-button {
+  box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 0.1);
+  border-style: solid;
+  border-width: 0px 0px 0px 0px;
+  background-color: var(--white);
+  font-size: 18px;
+  padding: 20px 40px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
