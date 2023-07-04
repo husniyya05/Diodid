@@ -234,6 +234,7 @@ table {
 .black {
   background-color: #080a0c;
   color: #fff;
+  padding-bottom: 50px;
 }
 
 .black h1 {
