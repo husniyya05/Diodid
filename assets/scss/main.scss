@@ -1,5 +1,6 @@
 @import "./reset";
 @import "./variable";
+@import "./mixin";
 
 header {
   .nav-items {
@@ -7,7 +8,7 @@ header {
     gap: 20px;
     align-items: center;
     a {
-    //   color: $--black;
+      //   color: $--black;
       text-decoration: none;
       font-size: 22px;
       font-weight: 500;
@@ -18,11 +19,7 @@ header {
         -moz-transform: translateY(-10px);
         -ms-transform: translateY(-10px);
         -o-transform: translateY(-10px);
-        transition: 0.5s ease;
-        -webkit-transition: 0.5s ease;
-        -moz-transition: 0.5s ease;
-        -ms-transition: 0.5s ease;
-        -o-transition: 0.5s ease;
+        @include transition;
         color: var(--orange);
       }
     }
