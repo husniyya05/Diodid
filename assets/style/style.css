@@ -103,6 +103,10 @@ header .iconbox {
 .contact form input:hover {
   margin-left: 10px;
   transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -ms-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
 }
 
 .contact form input:not(:hover) {
