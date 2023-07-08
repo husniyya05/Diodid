@@ -1,0 +1,44 @@
+.display-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header {
+    .nav-items{
+        display: flex;
+        align-items: center;
+    }
+    .iconbox{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
+.contact{
+    h1{
+        text-align: center;
+    }
+    form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        flex-direction: column;
+    }
+}
+.fixed{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10px;
+}
+.black{
+    h1{
+    display: flex;
+    justify-content: center;
+    }
+    .positionbox{
+        
+    }
+}
