@@ -1,0 +1,35 @@
+@media screen and (max-width: 768px) {
+  .tapp {
+    h1 {
+      font-size: 20px;
+    }
+    .tap-section-relative {
+      img {
+        height: auto;
+      }
+    }
+  }
+  .black {
+    h1{
+        font-size: 20px;
+    }
+  }
+  .value {
+    .our{
+        h1{
+            font-size: 20px;
+        }
+    }
+  }
+  
+  .meet img {
+    width: 100%;
+  }
+  .flex-wrap-responsive {
+    display: inherit;
+    flex-wrap: wrap;
+  }
+  .d-none-responsive {
+    display: none;
+  }
+}
