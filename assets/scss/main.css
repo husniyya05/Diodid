@@ -26,6 +26,10 @@ ul {
   text-decoration: none;
 }
 
+h6 {
+  margin-bottom: 0;
+}
+
 body {
   font-family: "Poppins", sans-serif;
 }
@@ -604,17 +608,23 @@ h5 {
 }
 .universal .image-box {
   overflow: hidden;
+  height: 100%;
+}
+.universal .image-box .img {
+  height: 100%;
   border-radius: 10px 0 0 10px;
   -webkit-border-radius: 10px 0 0 10px;
   -moz-border-radius: 10px 0 0 10px;
   -ms-border-radius: 10px 0 0 10px;
   -o-border-radius: 10px 0 0 10px;
 }
-.universal .image-box img {
+.universal .image-box .img img {
+  height: 100%;
+  width: 100%;
   filter: brightness(100%) contrast(100%) saturate(25%) blur(0px) hue-rotate(0deg);
   cursor: pointer;
 }
-.universal .image-box img:hover {
+.universal .image-box .img img:hover {
   transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
@@ -627,7 +637,7 @@ h5 {
   -o-transform: scale(1.2);
   filter: brightness(100%) contrast(100%) saturate(100%) blur(0px) hue-rotate(0deg);
 }
-.universal .image-box img:not(:hover) {
+.universal .image-box .img img:not(:hover) {
   transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
@@ -655,9 +665,6 @@ h5 {
   color: #090c0f;
   font-size: 14px;
   font-weight: 300;
-}
-.universal .content-box {
-  margin: 30px 10px;
 }
 .universal .content-box .href {
   margin: 10px 0;
@@ -721,10 +728,10 @@ h5 {
   padding: 10px 15px;
   border-width: 0 0 1px;
   background-color: transparent;
-  width: 350px;
 }
-.si .search input :focus {
+.si .search input:focus {
   border: 1px solid #15c7e7;
+  outline: none;
 }
 .si .iconbox {
   background-color: #15c7e7;
@@ -833,6 +840,9 @@ h5 {
   }
 }
 @media screen and (max-width: 768px) {
+  .padding-top-res {
+    padding-top: 20px;
+  }
   .tapp h1 {
     font-size: 20px;
   }
