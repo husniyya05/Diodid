@@ -1,0 +1,9 @@
+function check_tabs(tabobj)
+{
+    return false;
+}
+
+function tab_results(tabobj)
+{
+    toastr.error('Məlumatlara baxmaq üçün növbəti və geri düyməsindən istifadə edin');
+}

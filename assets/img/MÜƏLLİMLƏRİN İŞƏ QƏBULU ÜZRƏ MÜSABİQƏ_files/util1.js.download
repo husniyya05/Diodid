@@ -1,0 +1,244 @@
+function show_load(span_id)
+{
+    $("#"+span_id).html("<br /><img height='25px' src='/img/ajax_loader2.gif' />");
+}
+
+
+function redirect(location)
+{
+    window.location.href=location;
+}
+
+function page_back()
+{
+    window.history.back(1);
+}
+
+function show_obj(obj_id,show)
+{
+
+    if(show==true) document.getElementById(obj_id).style.display="";
+    else document.getElementById(obj_id).style.display="none";
+}
+
+function MoveCenter(mobjectID)
+{
+            var width = $( window ).width();
+            var height = "100px";
+
+            document.getElementById(mobjectID).style.position="absolute";
+            document.getElementById(mobjectID).style.top=height;
+            document.getElementById(mobjectID).style.left='200px';
+}
+
+function MoveCenterMobile(mobjectID)
+{
+
+            var width = $( window ).width();
+            var height = "100px";
+
+            document.getElementById(mobjectID).style.position="absolute";
+            document.getElementById(mobjectID).style.top=height;
+            document.getElementById(mobjectID).style.left='1px';
+
+
+}
+
+
+function querySt(ji) {
+var res = "-1"
+hu = window.location.search.substring(1);
+gy = hu.split("&");
+for (i=0;i<gy.length;i++) {
+ft = gy[i].split("=");
+if (ft[0] == ji) {
+res = ft[1];
+}
+}
+return res;
+}
+
+
+function convert_to_mile(distance)
+{
+    return Math.round(distance *  0.000621371,2);
+}
+
+function onlyNumbers(evt) {
+    var e = evt
+    if(window.event){ // IE
+    var charCode = e.keyCode;
+    } else if (e.which) { // Safari 4, Firefox 3.0.4
+    var charCode = e.which
+    }
+
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    return false;
+    return true;
+}
+
+function onlyDecs(evt) {
+    var e = evt
+    if(window.event){ // IE
+    var charCode = e.keyCode;
+    } else if (e.which) { // Safari 4, Firefox 3.0.4
+    var charCode = e.which
+    }
+
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode!=46 && charCode!=45)
+    return false;
+    return true;
+}
+
+function SearchInTable2(search_control, tableid, search_columns, mobile = 1)
+{
+        setTimeout(function(){
+            var value = $.trim($("#"+search_control).val());
+
+            if(value=="") ShowAllTableRows(search_control, tableid);
+            else {
+                console.log(mobile);
+                if(mobile) {
+                    SearchInTable(search_control, tableid, search_columns);
+                } else {
+                    SearchInTableOriginal(search_control, tableid, search_columns);
+                }
+
+            }
+        }, 100);
+
+}
+_found_rows = 0;
+function SearchInTable(search_control, tableid, search_columns) {
+
+
+    var value = $.trim($("#"+search_control).val());
+    var lowercaseValue = value.toLowerCase();
+    //console.log(lowercaseValue);
+
+//table-tblgroups
+    _found_rows = 0;
+    $("#"+tableid+" > tbody").each(function(index) {
+
+
+
+            $row = $(this);
+
+            var find = false;
+
+            var id = $row.find('td.region_name').text().toLowerCase();
+            var id1 = $row.find('td.school_name').text().toLowerCase();
+            var id2 = $row.find('td.subject_name').text().toLowerCase();
+
+            if (id.indexOf(lowercaseValue) >= 0 || id1.indexOf(lowercaseValue) >= 0 || id2.indexOf(lowercaseValue) >= 0)
+            {
+                find = true;
+            }
+
+
+            if (!find) {
+                $row.hide();
+            }
+            else {
+               $row.show();
+               _found_rows++;
+            }
+
+    });
+    ShowSearchResults(tableid,_found_rows);
+    return _found_rows;
+}
+
+function SearchInTableOriginal(search_control, tableid, search_columns) {
+
+
+    var value = $.trim($("#"+search_control).val());
+    var lowercaseValue = value.toLowerCase();
+    console.log(lowercaseValue);
+
+//table-tblgroups
+    _found_rows = 0;
+    $("#"+tableid+" > tbody  > tr").each(function(index) {
+
+        if (index != 0) {
+
+            $row = $(this);
+
+            var find = false;
+            var results = search_columns.split(",");
+            for(var y =0;y<results.length;y++)
+            {
+                var id = $row.find('td:eq('+results[y]+')').text().toLowerCase();
+                if (id.indexOf(lowercaseValue) >= 0)
+                {
+                    find = true;
+                }
+            }
+
+            if (!find) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+                _found_rows++;
+            }
+        }
+    });
+    ShowSearchResults(tableid,_found_rows);
+    return _found_rows;
+}
+
+function ShowSearchResults(tableid,found_rows)
+{
+
+    $("#"+tableid+"-div").show();
+    $("#"+tableid+"-number").html(found_rows);
+}
+
+function ShowAllTableRows(search_control,tableid)
+{
+    $("#"+tableid+"-div").hide();
+
+    $("#"+search_control).val("");
+
+    $("#"+tableid+" > tbody  > tr").each(function(index) {
+
+    if (index != 0) {
+
+        $row = $(this);
+
+        $row.show();
+    }
+    });
+}
+
+var submitHandler = function() {
+  // do stuff
+  return false;
+}
+
+function EnableTab(tab_id,enable)
+{
+    if(enable)
+    {
+        $("#"+tab_id).attr("data-toggle","tab");
+        $("#li_"+tab_id).removeClass("disabled");
+    }
+    else
+    {
+        $("#"+tab_id).attr("data-toggle","");
+        $("#li_"+tab_id).addClass("disabled");
+    }
+}
+
+function EnableControl(control_id,enable)
+{
+    if(enable)
+    {
+        $("#"+control_id).removeClass("disabled");
+    }
+    else
+    {
+        $("#"+control_id).addClass("disabled");
+    }
+}

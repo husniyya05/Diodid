@@ -1,0 +1,952 @@
+var reg = {
+
+    BUTTON_SAVE_TEHSIL_CLICKED : false,
+    BUTTON_SAVE_MM_CLICKED : false,
+
+    SEBEB_FILE_UPLOADED : false,
+    VACANCY_FIRST_LOAD : false,
+    SELECTED_VAC : 0,
+
+    REG_EDIT_MODE : false,
+
+    regem_elave : ['ci','ci','ci','cü','cü','ci','cı','ci','ci','cu','cu'],
+
+    vacancy_arr  : [],
+
+    exam_request: function (confirmation_message ) {
+        if(confirm(confirmation_message)) {
+            jQuery.ajax({
+                url: 'teacher/exam_request',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    alert(response.message);
+                    window.location.reload();
+                },
+            });
+        }
+    },
+
+    save_mm : function()
+    {
+        this.BUTTON_SAVE_MM_CLICKED=true;
+        var error_msg=reg_vals.check_mm();
+
+        if(error_msg!="")
+        {
+            toastr.error(error_msg);
+            return;
+        }
+
+        var imtahanda_ishtirak = $("input[name='drpMusNov']:checked").val();
+
+        var fenn_id= $("#drpFenn").val();
+        var bolme_id= $("#drpBolme").val();
+        var region_id= $("#drpRayon").val();
+        var school_id = $("#drpMekteb").val();
+        var school_diger = $("#school_diger_input").val();
+
+        var myid = -1;
+        var hdnTPoint = $("#hdnTPoint").val();
+        myid = reg.get_point_id(imtahanda_ishtirak);
+
+        if(parseInt(imtahanda_ishtirak)==2)
+        {
+            fenn_id = $("#hdnF_"+myid).val();
+            bolme_id = $("#hdnB_"+myid).val();
+        }
+        else if(parseInt(imtahanda_ishtirak)==3)
+        {
+            if(parseInt(myid)!=-1)
+            {
+                fenn_id = $("#hdnF_"+myid).val();
+                bolme_id = $("#hdnB_"+myid).val();
+            }
+            else
+            {
+                fenn_id = $("#drpFennDQ").val();
+                bolme_id = $("#drpBolmeDQ").val();
+            }
+        }
+
+        reg.waiting_buttons(true);
+        $.post('save_mm', { save_mm: "yes" , ajax: "yes",
+                                          drpBolme:bolme_id,
+                                          region_id: region_id,
+                                          school_id:school_id,
+                                          school_diger:school_diger,
+                                          drpFenn:fenn_id, balid : myid , imtahanda_ishtirak:imtahanda_ishtirak,
+                                          drpBolmeDQ:$("#drpBolmeDQ").val(),
+                                          drpFennDQ:$("#drpFennDQ").val(),
+                                          drpYearsDQ:$("#drpYearsDQ").val(),
+                                          drpBalDQ:$("#drpBalDQ").val(),
+                                          dq_point_selected:reg.dq_point_selected()
+                                        },
+          function(data){
+              reg.waiting_buttons(false);
+              if(parseInt(data.code)==0)
+              {
+                  open_tab('divShexsiMelumat');
+                  $('html,body').animate({scrollTop:100});
+              } else if(parseInt(data.code)== -50) {
+                  window.location.reload();
+              }
+              else toastr.error(data.msgtext);
+
+         },"json");
+    },
+
+    save_shexsi_melumat : function()
+    {
+        var error_msg="";
+
+        error_msg+=value_check("drpFRayon","Faktiki yaşadığınız rayonu seçin <br/>","");
+        error_msg+=value_check("txtFUnvan","Faktiki yaşadığınız ünvanı daxil edin <br/>","");
+        //error_msg+=general_check("txtEmail","Email-i düzgün daxil edin <br/>",true,"email",-1,-1);
+        error_msg+=value_check("drpMobOpt","Mobil operatoru seçin <br/>","");
+        error_msg+=general_check("txtMobil","Mobil nömrəni düzgün formatda daxil edin <br/>",true,"number",7,7);
+
+        if(error_msg!="")
+        {
+            toastr.error(error_msg);
+            return
+        }
+
+        reg.waiting_buttons(true);
+
+        $.ajax({
+        type: 'POST',
+        url: 'save_private_information',
+        data : { save_shexsi_melumat: "yes" , ajax: "yes",
+                                          drpFRayon:$("#drpFRayon").val(),
+                                          txtFUnvan:$("#txtFUnvan").val(),
+                                          txtEmail:$("#txtEmail").val(),
+                                          drpMobOpt:$("#drpMobOpt").val(),
+                                          txtMobil:$("#txtMobil").val()
+
+                                        },
+        dataType: 'json',
+        success: function(data) {
+//alert(data);
+  //          console.log(data);
+            reg.waiting_buttons(false);
+            if(parseInt(data.code)==0)
+            {
+                open_tab('divTabTehsilMelumat');
+                if(counters.tehsil_sayi==0) counters.tehsil_elave_et();
+                $('html,body').animate({scrollTop:100});
+            } else if(parseInt(data.code)== -50) {
+                window.location.reload();
+            }
+            else toastr.error(data.msgtext);
+        },
+        error: function(e) {
+
+            reg.waiting_buttons(false);
+        }
+        });
+
+    },
+
+
+    chkTXaric_OnClick : function()
+    {
+        if($('#chkTXaric-1').is(':checked') == true)
+        {
+            $("#txtXaricNomre-1").show();
+        }
+        else $("#txtXaricNomre-1").hide();
+    },
+
+    get_point_id : function(tip)
+    {
+        var myid = -1;
+        var hdnTPoint = $("#hdnTPoint").val();
+        for(var i=1;i<=hdnTPoint;i++)
+        {
+            if($("#rdPSelect-T"+tip+"-"+i).is(':checked'))
+            myid =  $("#rdPSelect-T"+tip+"-"+i).val()
+        }
+        return myid;
+    },
+
+    dq_point_selected : function()
+    {
+         if($("#rdPSelect-1000").is(':checked')) return 1;
+         return 0;
+    },
+
+    save_tehsil_melumat : function()
+    {
+        var global_error = true;
+        var bolme_id = $("#drpBolme").val();
+        var fenn_id = $("#drpFenn").val();
+
+        var subjects_arr = new Array();
+        var myid = parseInt(reg.get_point_id($("input[name='drpMusNov']:checked").val()));
+
+        var imtahanda_ishtirak = $("input[name='drpMusNov']:checked").val();
+
+        if(parseInt(imtahanda_ishtirak)==1)
+        {
+            subjects_arr.push(parseInt(fenn_id));
+        }
+        else if(parseInt(imtahanda_ishtirak)==2)
+        {
+            fenn_id = $("#hdnF_"+myid).val();
+            bolme_id = $("#hdnB_"+myid).val();
+
+            subjects_arr.push(parseInt(fenn_id));
+        }
+        else if(parseInt(imtahanda_ishtirak)==3)
+        {
+            if(myid!=-1)
+            {
+                fenn_id = $("#hdnF_"+myid).val();
+                bolme_id = $("#hdnB_"+myid).val();
+
+                subjects_arr.push(parseInt(fenn_id));
+            }
+            else if($("#rdPSelect-1000").is(':checked'))
+            {
+                fenn_id = $("#drpFennDQ").val();
+                bolme_id = $("#drpBolmeDQ").val();
+            }
+
+            if($("#drpFennDQ").val()!="") subjects_arr.push(parseInt($("#drpFennDQ").val()));
+
+        }
+
+        var errors = reg_vals.check_tehsil_tab();
+        reg.BUTTON_SAVE_TEHSIL_CLICKED=true;
+        var arr_tehsil = [];
+        var main_data = {};
+        $("#msgTehsil").hide();
+        if(errors==false)
+        {
+            main_data['xaricde_tehsil']=$('#chkTXaric-1').is(':checked') == true ? 1 : 0;
+            main_data['xaricde_nomre']=$("#txtXaricNomre-1").val();
+
+            for(var i =0; i<counters.tehsil_sayi;i++)
+            {
+                var z=i+1;
+                arr_tehsil[i] = {};
+                arr_tehsil[i]['drpTPillesi'] = $("#drpTPillesi-"+z).val();
+                arr_tehsil[i]['drpTIxtisas'] = $("#drpTIxtisas-"+z).val();
+                arr_tehsil[i]['drpTMuesse'] = $("#drpTMuesse-"+z).val();
+                arr_tehsil[i]['txtIxtisasDiger'] = $("#txtIxtisasDiger-"+z).val();
+                arr_tehsil[i]['txtMuesDiger'] = $("#txtMuesDiger-"+z).val();
+                arr_tehsil[i]['drpTBashla'] = $("#drpTBashla-"+z).val();
+                arr_tehsil[i]['drpTBitme'] = $("#drpTBitme-"+z).val();
+                arr_tehsil[i]['drpDiplomSev'] = $("#drpDiplomSev-"+z).val();
+                arr_tehsil[i]['txtTSenedNomre'] = $("#txtTSenedNomre-"+z).val();
+
+                var str = arr_tehsil[i]['drpTIxtisas'];
+                var res = str.split('_');
+
+
+
+                if(res.length>1)
+                {
+                    /*
+                    if(parseInt(res[0])==parseInt(fenn_id))
+                    {
+                        global_error=false;
+                    }
+                    */
+                    if(jQuery.inArray(parseInt(res[0]), subjects_arr) != -1)
+                    {
+                        global_error=false;
+                    }
+
+
+                }
+
+		if(parseInt(res[0])==2 && jQuery.inArray(24, subjects_arr) != -1) global_error=false;
+		if(jQuery.inArray(25, subjects_arr) != -1) global_error=false;
+
+                try
+                {
+                    if($("#drpTIxtisas-1").val()=="-2") global_error=false;
+                }catch(e){}
+
+            }
+            //global_error=false;
+            if(global_error==true)
+            {
+                var err = "Seçdiyiniz fənn ilə ixtisasınız uyğun gəlmir";
+                $("#msgTehsil").show();
+                $("#msgTehsil").html('<div class="alert alert-danger">'+err+'</div>');
+                toastr.error(err);
+                return;
+            } else $("#msgTehsil").hide();
+
+            reg.waiting_buttons(true);
+            $.post('save_education_information', { save_tehsil_melumat: "yes" , ajax: "yes",
+                                         arr_tehsil: JSON.stringify(arr_tehsil),
+                                         main_data: JSON.stringify(main_data)
+                                        },
+            function(data){
+                reg.waiting_buttons(false);
+                if(parseInt(data.code)==0)
+                {
+                    dics.visual_impairment_OnChange();
+                    if(fenn_id == 25) {
+                        $('.mektebe_qeder').hide();
+                    } else {
+                        $('.mektebe_qeder').show();
+                    }
+                    if(counters.teltif_sayi==0) counters.teltif_elave_et();
+                    if(counters.derslik_sayi==0) counters.derslik_elave_et();
+                    if(counters.tedris_ves_sayi==0) counters.tedris_vesaiti_elave_et();
+
+                    open_tab('divTabDiger');
+                    $('html,body').animate({scrollTop:100});
+                } else if(parseInt(data.code)== -50) {
+                    window.location.reload();
+                }
+                else toastr.error(data.msgtext);
+
+           },"json"); //,"json"
+
+        }
+
+    },
+
+
+    save_diplom_melumat : function()
+    {
+
+        var errors = reg_vals.check_diplom_tab();
+
+        if(errors==false)
+        {
+            reg.waiting_buttons(true);
+            $.post('save_diploma_information', { save_diplom_melumat: "yes" , ajax: "yes"},
+            function(data){
+                reg.waiting_buttons(false);
+                if(parseInt(data.code)==0)
+                {
+                   open_tab('divTabVak');
+                   reg.status_btnVacNext();
+                   $('html,body').animate({scrollTop:100});
+                } else if(parseInt(data.code)== -50) {
+                    window.location.reload();
+                }
+                else toastr.error(data.msgtext);
+
+           },"json"); //,"json"
+
+        }
+
+    },
+
+    diger_melumat_next: function()
+    {
+        var global_error=false;
+        var errors = reg_vals.check_diger_mel_tab();
+        var main_data = {};
+        var arr_teltiv = [];
+        var arr_derslik = [];
+        var arr_tedris = [];
+
+        if(!errors)
+        {
+            main_data['drpPStajIl'] = $("#drpPStajIl").val();
+            main_data['drpMStajIl'] = $("#drpMStajIl").val();
+            main_data['region_id2'] = $("#drpRayon1").val();
+            main_data['school_id2'] = $("#drpMekteb").val();
+            main_data['visual_impairment'] = $("#visual_impairment").val();
+            main_data['visual_impairment_file'] = $("#hdn_visual_impairment").val();
+            main_data['drpElmiDerece'] = $("#drpElmiDerece").val();
+            main_data['drpElmiDereceTarix'] = $("#drpElmiDereceTarix").val();
+            main_data['txtDigerSebeb'] = $("#txtDigerSebeb").val();
+            main_data['txtMusSebeb'] = $.trim($("#txtMusSebeb").val());
+
+            for(var i =0; i<counters.teltif_sayi;i++)
+            {
+                var z=i+1;
+                arr_teltiv[i] = {};
+                arr_teltiv[i]['drpTltf'] = $("#drpTltf-"+z).val();
+                arr_teltiv[i]['drpTltfTarix'] = $("#drpTltfTarix-"+z).val();
+            }
+
+            for(var i =0; i<counters.derslik_sayi;i++)
+            {
+                var z=i+1;
+                arr_derslik[i] = {};
+                arr_derslik[i]['drpDMuel'] = $("#drpDMuel-"+z).val();
+                arr_derslik[i]['txtDersAdi'] = $("#txtDersAdi-"+z).val();
+                arr_derslik[i]['drpDersTarix'] = $("#drpDersTarix-"+z).val();
+            }
+
+            for(var i =0; i<counters.tedris_ves_sayi;i++)
+            {
+                var z=i+1;
+                arr_tedris[i] = {};
+                arr_tedris[i]['drpTvMuel'] = $("#drpTvMuel-"+z).val();
+                arr_tedris[i]['txtTvAdi'] = $("#txtTvAdi-"+z).val();
+                arr_tedris[i]['drpTvTarix'] = $("#drpTvTarix-"+z).val();
+            }
+            reg.waiting_buttons(true);
+            $.post('save_other_information', { save_diger_melumat: "yes" , ajax: "yes",
+                                         arr_teltiv: JSON.stringify(arr_teltiv),
+                                         arr_derslik: JSON.stringify(arr_derslik),
+                                         arr_tedris: JSON.stringify(arr_tedris),
+                                         main_data: JSON.stringify(main_data)
+                                        },
+            function(data){
+
+                reg.waiting_buttons(false);
+                if(parseInt(data.code)==0)
+                {
+                   // open_tab('divTabVak');
+                    $("#secMain").hide();
+                    $("#secFinish").show('slow');
+                    reg.load_erize();
+                    this.VACANCY_FIRST_LOAD=false;
+                    $('html,body').animate({scrollTop:100});
+                } else if(parseInt(data.code)== -50) {
+                    window.location.reload();
+                }
+                else toastr.error(data.msgtext);
+
+           },"json"); //,"json"
+
+        }
+        else
+        {
+                    //if($.trim($("#txtMusSebeb").val())!="") $('html,body').animate({scrollTop:100});
+        }
+
+        $('html,body').animate({scrollTop:100});
+
+    },
+
+    vac_select : function(vacancy_id,rayon_adi,mekteb_adi,vakant_yerler,ders_yuku,tipi,sayi,bal)
+    {
+
+        var sira=reg.check_vacancy_is_selected(vacancy_id);
+        if(sira!=-1)
+        {
+            toastr.error('Bu vakansiyanı artıq seçmisiniz. Sıra nömrəsi : '+sira);
+            return false;
+        }
+
+        $("#textRayon-"+reg.SELECTED_VAC).html(rayon_adi);
+        $("#textMekteb-"+reg.SELECTED_VAC).html(mekteb_adi);
+        $("#textVakan-"+reg.SELECTED_VAC).html(vakant_yerler);
+        $("#textDers-"+reg.SELECTED_VAC).html(ders_yuku);
+        $("#textHeves-"+reg.SELECTED_VAC).html(tipi);
+        $("#textSay-"+reg.SELECTED_VAC).html(sayi);
+        $("#textMaxBal-"+reg.SELECTED_VAC).html(bal);
+        $("#hdnVac-"+reg.SELECTED_VAC).val(vacancy_id);
+
+        reg.vacs_push_to_array();
+
+        $("#divVacancyMain").hide();
+
+        $("#btnDelete-"+reg.SELECTED_VAC).show();
+        $("#btnVacDetails-"+reg.SELECTED_VAC).show();
+
+        $("#tblVacList").show();
+
+        reg.status_btnVacNext();
+
+        if(IS_MOBILE==false) $('html,body').animate({scrollTop:100});
+
+        return true;
+
+    },
+    vac_choose : function(vacancy_id,rayon_adi,mekteb_adi,vakant_yerler,ders_yuku,tipi,sayi,bal)
+    {
+        var update_me = reg.vac_select(vacancy_id,rayon_adi,mekteb_adi,vakant_yerler,ders_yuku,tipi,sayi,bal);
+
+        if(update_me)
+        {
+            reg.save_all_vacs();
+
+            if(IS_MOBILE) {
+            $('html,body').animate({
+                   scrollTop: $("#divVAC-"+reg.SELECTED_VAC).offset().top
+                 });
+             }
+        }
+    },
+    select_vac : function(vac_number)
+    {
+        $("#tblVacList").hide();
+        if(this.VACANCY_FIRST_LOAD==false)
+        {
+            reg.waiting_buttons(true);
+            $('html,body').animate({scrollTop:100});
+            $.post('vacancy/get', { get_vacs: "yes" , ajax: "yes"},
+                    function(data){
+
+                    reg.waiting_buttons(false);
+                    if(parseInt(data.code)==0)
+                    {
+                        reg.set_vac_loaded();
+                        $("#divVacancyMain").show();
+                        $("#divVacancy").html(data.table);
+                        reg.show_vacancy_list();
+                    }
+                    else toastr.error(data.msgtext);
+            },"json");
+
+            this.SELECTED_VAC=vac_number;
+
+        }
+        else
+        {
+            this.SELECTED_VAC=vac_number;
+            reg.show_vacancy_list();
+            $('html,body').animate({scrollTop:100});
+        }
+
+       $("#spSira").html(vac_number+'-'+this.regem_elave[vac_number]);
+    },
+
+    save_all_vacs : function()
+    {
+        var vac_list = new Array();
+        var z=0;
+
+        for(var i =1;i<=_VAC_COUNT;i++)
+        {
+            var vac_value = $.trim($("#hdnVac-"+i).val());
+
+            if(vac_value!="") {
+                vac_list[z]=vac_value;
+                z++;
+            }
+        }
+
+        if(vac_list.length > 0) {
+            reg.waiting_buttons(true);
+            $.post('vacancy/save', { vac_list:vac_list},
+            function(data){
+                reg.waiting_buttons(false);
+            });
+        }
+        else
+        {
+            reg.status_btnVacNext();
+        }
+    },
+
+    delete_selected_vac : function(vac_id)
+    {
+        $.post('save_selected_vac', { save_selected_vac: "yes" ,vac_id:vac_id, ajax: "yes"},
+                    function(data){  });
+    },
+
+    show_vacancy_list : function()
+    {
+        $("#divVacancyMain").show();
+        /*
+        $('html,body').animate({
+               scrollTop: $("#divVacancyMain").offset().top
+             }); */
+    },
+
+    show_selected_vacs : function()
+    {
+        $("#divVacancyMain").hide();
+        $("#tblVacList").show();
+    },
+
+    set_vac_loaded : function()
+    {
+        this.VACANCY_FIRST_LOAD=true;
+    },
+
+    delete_vac : function(vac_number,push_from_array)
+    {
+        $("#textRayon-"+vac_number).html("");
+        $("#textMekteb-"+vac_number).html("");
+        $("#textVakan-"+vac_number).html("");
+        $("#textDers-"+vac_number).html("");
+        $("#textHeves-"+vac_number).html("");
+        $("#textSay-"+vac_number).html("");
+        $("#textMaxBal-"+vac_number).html("");
+        $("#hdnVac-"+vac_number).val("");
+        $("#btnDelete-"+vac_number).hide();
+        $("#btnVacDetails-"+vac_number).hide();
+
+        if(push_from_array)
+        {
+            reg.vacs_load_from_array();
+            reg.save_all_vacs();
+        }
+
+
+    },
+
+    delete_all_vacs : function()
+    {
+        for(var i =1;i<=_VAC_COUNT;i++)
+        {
+            reg.delete_vac(i,false);
+        }
+
+    },
+
+    status_btnVacNext : function()
+    {
+        var found=false;
+        for(var i =1;i<=_VAC_COUNT;i++)
+        {
+            if($("#hdnVac-"+i).val()!="")
+            {
+                found=true;
+                break;
+            }
+        }
+
+        if(found) $("#btnVacNext").show();
+        else $("#btnVacNext").hide();
+    },
+
+    vacs_push_to_array : function()
+    {
+        var z=0;
+        this.vacancy_arr = [];
+        for(var i =1;i<=_VAC_COUNT;i++)
+        {
+            var vac_value = $.trim($("#hdnVac-"+i).val());
+            if(vac_value!="")
+            {
+                var vacancy = {textRayon: $("#textRayon-"+i).html(),
+                               textMekteb: $("#textMekteb-"+i).html(),
+                               textVakan:$("#textVakan-"+i).html(),
+                               textDers:$("#textDers-"+i).html(),
+                               textHeves:$("#textHeves-"+i).html(),
+                               textSay:$("#textSay-"+i).html(),
+                               textMaxBal:$("#textMaxBal-"+i).html(),
+                               hdnVac:$("#hdnVac-"+i).val()
+                               };
+                this.vacancy_arr[z]=vacancy;
+                z++;
+            }
+
+        }
+    },
+
+    vacs_load_from_array()
+    {
+        reg.vacs_push_to_array();
+        reg.delete_all_vacs();
+
+        for(var i =0;i<this.vacancy_arr.length;i++)
+        {
+            var vacancy = this.vacancy_arr[i];
+            $("#textRayon-"+(i+1)).html(vacancy.textRayon);
+            $("#textMekteb-"+(i+1)).html(vacancy.textMekteb);
+            $("#textVakan-"+(i+1)).html(vacancy.textVakan);
+            $("#textDers-"+(i+1)).html(vacancy.textDers);
+            $("#textHeves-"+(i+1)).html(vacancy.textHeves);
+            $("#textSay-"+(i+1)).html(vacancy.textSay);
+            $("#textMaxBal-"+(i+1)).html(vacancy.textMaxBal);
+            $("#hdnVac-"+(i+1)).val(vacancy.hdnVac);
+
+            $("#btnDelete-"+(i+1)).show();
+            $("#btnVacDetails-"+(i+1)).show();
+        }
+
+    },
+
+    btnVacNext_OnClick : function()
+    {
+        var msg = "";
+        found=true;
+
+        $("#msgVac").hide();
+
+        for(var i =1; i<=_VAC_COUNT; i++) {
+            var vac_value = $.trim($("#hdnVac-"+i).val());
+            if(vac_value!="" && found == false)
+            {
+                msg = "Sıralamada "+i+"-"+this.regem_elave[i]+" vakansiyanı seçmisiniz , amma "+(i-1)+"-"+this.regem_elave[i-1]+" vakansiyanı seçməmisiniz. Ardıcıllığa riayət edin.";
+            }
+            if(vac_value == "") found=false;
+            else found = true;
+        }
+
+        var vac_list = new Array();
+        var z=0;
+        for(var i =1;i<=_VAC_COUNT;i++)
+        {
+            var vac_value = $.trim($("#hdnVac-"+i).val());
+            if(vac_value!="") {
+                vac_list[z]=vac_value;
+                z++;
+            }
+
+        }
+
+        if(z==0) {
+            msg+="Vakansiya seçin";
+        }
+
+        if(msg!="") {
+            toastr.error(msg)
+            return;
+        }
+
+
+
+        reg.waiting_buttons(true);
+        $.post('vacancy/save', {vac_list: vac_list},
+            function(data){
+            //    alert(data);
+            reg.waiting_buttons(false);
+            if(parseInt(data.code) == 0) {
+                $("#secMain").hide();
+                $("#secFinish").show('slow');
+                reg.load_erize();
+            }
+            else  {
+                toastr.error(data.message);
+                setTimeout(function(){ window.location.reload() }, 2000);
+            }
+        },"json");
+
+    },
+
+    check_vacancy_is_selected : function(vac_id)
+    {
+        for(var i =1;i<=_VAC_COUNT;i++)
+        {
+            if($("#hdnVac-"+i).val()!="")
+            {
+                if(parseInt($.trim($("#hdnVac-"+i).val()))==vac_id)
+                {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    },
+
+    load_erize : function()
+    {
+        reg.waiting_buttons(true);
+        $.post('application', { content:"yes"},
+                    function(data){
+                    //   alert(data);
+                    reg.waiting_buttons(false);
+                    $("#divFinish").html(data);
+            });
+    },
+
+    testiqle_son : function(module)
+    {
+
+        reg.waiting_buttons(true);
+
+        if(module=='son_testiq')
+        {
+            $.post('son_testiq', { ajax:"yes", son_testiq:"1"},
+                        function(data){
+
+                        if(parseInt(data.code)==0)
+                        {
+                            toastr.success('Siz uğurla qeydiyyatdan keçdiniz.')
+                            window.location.href='information';
+                        } else if(parseInt(data.code)== -50) {
+                            window.location.reload();
+                        }
+                        else
+                        {
+                            toastr.error(data.msgtext);
+                            reg.waiting_buttons(false)
+                        }
+
+                },"json");
+        }
+        else
+        {
+
+	    var vac_tcount = parseInt($("#txtTVacCount").val());
+	    if(vac_tcount==0)
+	    {
+		toastr.success('Vakansiya seçin');
+		reg.waiting_buttons(false);
+		return;
+	    }
+
+            $.post('vacancy/confirmation', { ajax:"yes", vac_testiq:"1"},
+                        function(data){
+
+                        if(parseInt(data.code)==0)
+                        {
+                            toastr.success('Siz uğurla qeydiyyatdan keçdiniz.')
+                            window.location.href='information';
+                        }
+                        else
+                        {
+                            toastr.error(data.msgtext);
+                            reg.waiting_buttons(false)
+                        }
+
+                },"json");
+        }
+    },
+
+    btnLastTestiq_OnClick : function()
+    {
+        $("#secFinish").hide();
+        $("#secMain").show('slow');
+    },
+
+    waiting_buttons : function(enable)
+    {
+
+        if(enable)
+        {
+            $(".waitbtn").show();
+            $(".procbtn").hide();
+        }
+        else
+        {
+            $(".waitbtn").hide();
+            $(".procbtn").show();
+        }
+    },
+
+    geri_shexsi_melumat : function()
+    {
+        open_tab('divMM');
+        $('html,body').animate({scrollTop:100});
+    },
+
+    geri_tehsil_melumat : function()
+    {
+        open_tab('divShexsiMelumat');
+        $('html,body').animate({scrollTop:100});
+    },
+
+    geri_diger_melumat : function()
+    {
+        open_tab('divTabTehsilMelumat');
+        $('html,body').animate({scrollTop:100});
+    },
+
+    geri_vakansiya : function()
+    {
+        open_tab('divTabDiger');
+        $('html,body').animate({scrollTop:100});
+    },
+    geri_vakansiya2 : function()
+    {
+        open_tab('divTabTehsilMelumat');
+        $('html,body').animate({scrollTop:100});
+    },
+    geri_erize : function(module)
+    {
+        $("#secMain").show();
+        $("#secFinish").hide('slow');
+        open_tab(module);
+        //open_tab('divTabDiger');
+        $('html,body').animate({scrollTop:100});
+    },
+
+    load_vac_details:function(id)
+    {
+        if(id=="") return;
+         $('#myModalCP').modal('show');
+         $("#divvac_body").html('');
+        $.post('/vacancy/detail/'+id, { content:"yes"},
+            function(data){
+                $("#divvac_body").html(data);
+            });
+    },
+
+    vac_details:function(vac_number)
+    {
+        var vacid= $("#hdnVac-"+vac_number).val();
+
+        reg.load_vac_details(vacid);
+    },
+
+    apel_muraciet : function()
+    {
+	console.log('test');
+	reg.waiting_buttons(true);
+        $.post('apel_muraciet', { ajax:"yes", apel_muraciet:"1"},
+          function(data){
+             console.log(data);
+              if(parseInt(data.rcode)==0)
+              {
+                  redirect('melumat');
+              }
+
+
+          },"json");
+    },
+
+    select_point : function(s_point_id)
+    {
+        $('#myModalCP').modal('show');
+
+        reg.waiting_buttons(true);
+        $.post(CURRENT_PAGE_URL, { ajax:"yes", select_point:"1",s_point_id:s_point_id},
+          function(data){
+             //console.log(data);
+              if(parseInt(data.rcode)==0 && parseInt(data.vacs_status)==1)
+              {
+                  toastr.success("Bal uğurla seçildi. Vakansiya seçiminə keçmək üçün gözləyin...");
+                  redirect('profile');
+              }
+              else if(parseInt(data.rcode)==1)
+              {
+                  reg.waiting_buttons(false);
+                  toastr.error("Seçdiyiniz işə qəbul imtahanı nəticəsi müvafiq keçid balından az olduğu üçün vakant yer seçməyiniz imkan xaricindədir.");
+              }
+              else if(parseInt(data.rcode)==2)
+              {
+                  reg.waiting_buttons(false);
+                  toastr.error("Bu bal ilə vakansiya seçimi etmək mümkün deyil");
+              }
+
+          },"json");
+    },
+    approve_email_address : function()
+    {
+        if($.trim($("#txtEmail1").val())=="") {
+            toastr.error("Elektron ünvanınız daxil edilməyib");
+            return
+        }
+        else if($.trim($("#txtEmail1").val())!=$.trim($("#txtEmail2").val())) {
+            toastr.error("Elektron ünvanınız düzgün yazılmamışdır");
+            return
+        }
+
+        if(!confirm('Onlayn müsahibədə iştirak üçün müraciətinizi təsdiq edin.')) return false;
+
+        reg.waiting_buttons(true);
+        $.post('teacher/approve_email', { ajax:"yes",approve_email_address:"1", txtEmail1:$("#txtEmail1").val() , txtEmail2:$("#txtEmail2").val() },
+            function(data) {
+                if(parseInt(data.code) == 0) {
+                    toastr.success("Əməliyyat uğurla yerinə yetirildi. Gözləyin...");
+                    redirect('information');
+                } else if(parseInt(data.code) == 1) {
+                    toastr.error("Daxil etdiyiniz elektron ünvan düzgün formatda deyil");
+                    reg.waiting_buttons(false);
+                } else if(parseInt(data.code) == 4) {
+                    toastr.error("Zəhmət olmasa diplomunuzu yükləyin");
+                    reg.waiting_buttons(false);
+                } else if(parseInt(data.code) == 2) {
+                    toastr.error("Elektron ünvanınız düzgün yazılmamışdır");
+                    reg.waiting_buttons(false);
+                }
+                else if(parseInt(data.code) == 3) {
+                    toastr.error("Bu elektron ünvan digər namizəd tərəfindən daxil edilmişdir.");
+                    reg.waiting_buttons(false);
+                }
+            },"json");
+    }
+}
+

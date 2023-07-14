@@ -1,0 +1,107 @@
+PAY_MODE = 0;
+CURRENT_PAGE_ID=-1;
+function cms_replace_loader()
+{
+    $("#divMain").html("<img src='themes/"+PAGE_THEME+"/style/i/ajax_loader.gif' />");
+}
+
+function showobj(obj_id,enable)
+{
+    if(enable) document.getElementById(obj_id).style.display="";
+    else document.getElementById(obj_id).style.display="none";
+}
+
+
+
+function SetCookie (name, value) 
+    { 
+            var expDays = 200;
+            var exp = new Date(); 
+            exp.setTime(exp.getTime() + (expDays*24*60*60*1000));
+
+            var argv = SetCookie.arguments;
+            var argc = SetCookie.arguments.length;
+            var expires = exp;
+            var path = (argc > 3) ? argv[3] : null;
+            var domain = (argc > 4) ? argv[4] : null;
+            var secure = (argc > 5) ? argv[5] : false;
+            document.cookie = name + "=" + escape (value) + 
+            ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + 
+            ((path == null) ? "" : ("; path=" + path)) +  
+            ((domain == null) ? "" : ("; domain=" + domain)) +  
+            ((secure == true) ? "; secure" : "");
+            }
+   function DeleteCookie (name) { 
+            var exp = new Date();  
+            exp.setTime (exp.getTime() - 1); 
+            var cval = GetCookie (name);  
+            document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+    }
+    function GetCookie(name) {
+            var bikky = document.cookie;
+            var index = bikky.indexOf(name + "=");
+            if (index == -1) return null;
+            index = bikky.indexOf("=", index) + 1; // first character
+            var endstr = bikky.indexOf(";", index);
+            if (endstr == -1) endstr = bikky.length; // last character
+            return unescape(bikky.substring(index, endstr));
+      }
+      
+function LoadModule(content, link)
+{        
+
+    $.ajax({
+          method: "POST",       
+          url: "?module="+link,
+          data: { content:"yes",                    
+                }
+        })
+          .done(function( msg ) {   
+        
+              $("#"+content).html(msg);
+          });
+}
+      
+
+
+function ConvertLocalTimeToUTCTime(UTCDateString)
+{
+	if(UTCDateString=="") return "";
+	
+	var splited = UTCDateString.split(" ");
+	
+	var first = splited[0].split("/");
+	var second = splited[1].split(":");
+	
+	var finished = first[2]+"-"+first[0]+"-"+first[1]+" "+second[0]+":"+second[1]+":00";
+	
+	var convertdLocalTime = new Date(finished);
+
+	var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
+
+	convertdLocalTime.setHours( convertdLocalTime.getHours() + hourOffset ); 
+
+	return convertdLocalTime.getMonth()+1+'/'+convertdLocalTime.getDate()+'/'+convertdLocalTime.getFullYear()+' '+convertdLocalTime.getHours()+':'+convertdLocalTime.getMinutes();
+}
+
+function ConvertUTCTimeToLocalTime(LocalTimeString)
+{
+	if(LocalTimeString=="") return "";
+	
+	var splited = LocalTimeString.split(" ");
+	
+	var first = splited[0].split("/");
+	var second = splited[1].split(":");
+	
+	var finished = first[2]+"-"+first[0]+"-"+first[1]+" "+second[0]+":"+second[1]+":00";
+		
+
+	var convertdLocalTime = new Date(finished);
+
+	var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
+
+	convertdLocalTime.setHours( convertdLocalTime.getHours() - hourOffset ); 
+
+	return convertdLocalTime.getMonth()+1+'/'+convertdLocalTime.getDate()+'/'+convertdLocalTime.getFullYear()+' '+( (convertdLocalTime.getHours()<10?'0':'') + convertdLocalTime.getHours() )+':'+( (convertdLocalTime.getMinutes()<10?'0':'') + convertdLocalTime.getMinutes() );;
+}
+	
