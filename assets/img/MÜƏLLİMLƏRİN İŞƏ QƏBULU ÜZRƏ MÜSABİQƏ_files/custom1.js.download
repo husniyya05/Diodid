@@ -1,9 +1,0 @@
-function open_tab(tab_id)
-{    
-    $("#"+tab_id).closest('.tabs').find('li').removeClass('active');    
-    $("#"+tab_id).addClass('active');
-    var liIndex = $("#"+tab_id).index() + 1;
-    $("#"+tab_id).closest('.tabbed-content').find('.content>li').removeClass('active');
-    $("#"+tab_id).closest('.tabbed-content').find('.content>li:nth-of-type(' + liIndex + ')').addClass('active');
-  
-}
