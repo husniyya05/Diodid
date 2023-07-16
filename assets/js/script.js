@@ -1,7 +1,8 @@
-//var,let,const
-//variable
+// //var,let,const
+// //variable
 
-//boolean 2 deyer oturu (true,false)
+// //boolean 2 deyer oturu (true,false)
+
 
 const nameUniversity = false;
 const work = true;
@@ -45,3 +46,26 @@ var personals = [
   },
 ];
 console.log(personals[2].age);
+
+var book =[
+    {
+        writer: "Lev Tolstoy",
+        work: "Anna Karenina",
+        year: 1890,
+    },
+
+    {
+        writer: "Paulo Coelo",
+        work: "Kimyager",
+        year: 1995,
+
+    },
+    {
+        writer:"Franz Kafka",
+        work: "Cevrilme",
+        year: 1910,
+
+    },
+];
+console.log(book[1].work);
+

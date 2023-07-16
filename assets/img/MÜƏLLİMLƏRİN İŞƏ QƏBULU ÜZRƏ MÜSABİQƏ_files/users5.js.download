@@ -1,0 +1,330 @@
+var users = {
+    interval: "",
+    fin_number : "",
+    phone: "",
+    next_tab : 1,
+    startTimer : function(duration) {
+
+        $('#prefix2').attr('disabled', 'disabled');
+        $('#phone2').attr('readonly', 'readonly');
+        $('#resend').attr('disabled', 'disabled');
+
+        var timer = duration, minutes, seconds;
+        users.interval = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            document.querySelector('#timer').textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(users.interval);
+                $('#prefix2').removeAttr('disabled');
+                $('#phone2').removeAttr('readonly');
+                $('#resend').removeAttr('disabled');
+
+            }
+        }, 1000);
+    },
+    resend : function () {
+        this.phone = $("#prefix2").val() + $("#phone2").val();
+        $.ajax({
+            type: 'POST',
+            url:'resend',
+            data : { txtFinNumber:$('#txtFin').val(), phone: this.phone},
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                if(data.success) {
+                    users.startTimer(180, '#timer');
+                }
+            },
+            error: function(e) {
+                users.waiting_buttons(false);
+                users.reload_captcha();
+                console.log(e);
+            }
+        });
+    },
+    get_by_fin : function()
+    {
+        var fin_empty = empty_check_single('txtFinNumber','Fin kodu daxil edin');
+        var fin_select = value_check("drpPType","Seçin","-1");
+        //Added by Kamran at 2022
+        var prefix_select = value_check("prefix", "Operator seçin", "");
+        var phone_empty = empty_check_single("phone", "Mobil nömrənizi daxil edin");
+
+        if( $("#drpPType").val() == "1") {
+            var birthday_select = value_check("birthday", "Doğum tarixinizi qeyd edin", "");
+        }
+
+        var sec_empty = empty_check_single('txtSecCode','Təhlükəsizlik kodunu daxil edin');
+        if(fin_empty==true && sec_empty==true && $("#drpPType").val()!="-1" && $("#prefix").val()!="" && phone_empty == true)
+        {
+            this.fin_number=$("#txtFinNumber").val();
+            this.phone = $("#prefix").val() + $("#phone").val();
+            this.get_data_by_fin($("#txtSecCode").val());
+        }
+    } ,
+
+    reload_captcha : function()
+    {
+        let time = new Date();
+        //let captcha_url = $(".imgCap").attr("src");
+        $(".imgCap").attr("src", '/captcha/login');
+        $("#txtSecCode").val("");
+    },
+
+    get_data_by_fin : function(sec_code)
+    {
+       users.waiting_buttons(true);
+       $("#hIshNomre").hide();
+       $("#hFinKod").hide();
+
+       this.next_tab = 1;
+
+var migtype = $("#drpPType").val()=="2" ? "PRC" : "TRC";
+
+       $.ajax({
+        type: 'POST',
+        url:'fin',
+        data : { txtFinNumber:this.fin_number, phone: this.phone, get_by_fin : "yes", ajax: "yes" ,drpPType:$("#drpPType").val(), birthday:$("#birthday").val(), captcha : sec_code, drpPType:$("#drpPType").val() , txtTypeMiqrant: migtype },
+        dataType: 'json',
+        headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(data) {
+            users.waiting_buttons(false);
+            users.reload_captcha();
+            if(parseInt(data.i_result_code) == 2)
+            {
+                force_message('txtFinNumber', data.i_result_msg);
+                return;
+            }
+            if(parseInt(data.i_result_code)==3)
+            {
+                users.next_tab = 2;
+                toastr.error(data.i_result_msg);
+                $("#txtLogin").val(data.fin_kod);
+                open_tab("mytab4");
+                return;
+            }
+            else if(parseInt(data.i_result_code) == 4)
+            {
+                toastr.error(data.i_result_msg);
+                make_red("txtSecCode",true);
+                return;
+            }
+            else if(parseInt(data.i_result_code)==5)
+            {
+                toastr.error(data.i_result_msg);
+                return;
+            }
+
+            $("#txtSNo").val(data.serial_number);
+            $("#txtFin").val(data.fin);
+            $("#txtFinNumber").val(data.fin);
+            $("#txtAd").val(data.first_name);
+
+
+            $("#txtSoyad").val(data.last_name);
+            $("#txtAtaAdi").val(data.father_name);
+            $("#txtDTarix").val(data.birthday);
+            $("#txtCinsi").val(data.sex);
+            $("#txtUnvan").val(data.registration_address);
+           // $("#idUserPhoto").src="user_photos/t_photos/"+data.shekil_link;
+            document.getElementById('idUserPhoto').src= data.image_link;
+
+            open_tab("mytab2");
+            $('#prefix2').val($('#prefix').val());
+            $('#phone2').val($('#phone').val());
+            users.startTimer(180, '#timer');
+        },
+        error: function(e) {
+            users.waiting_buttons(false);
+            users.reload_captcha();
+            console.log(e);
+        }
+        });
+
+    } ,
+
+     drpPType_OnChange : function()
+    {
+        $("#imgF1").show();
+        $("#imgF2").hide();
+        $("#imgF3").hide();
+
+        if($("#drpPType").val()=="1" || $("#drpPType").val()=="-1")
+        {
+            $("#txtTypeMiqrant").hide();
+            $("#imgF1").show();
+            $("#birthday").show();
+
+            $("#imgF2").hide();
+            $("#imgF3").hide();
+            $("#txtFinNumber").attr("placeholder", "FİN KOD");
+        }
+        else if($("#drpPType").val()=="2")
+        {
+            $("#txtTypeMiqrant").hide();
+            $("#imgF1").hide();
+            $("#birthday").hide();
+            $("#imgF2").show();
+            $("#imgF3").hide();
+            $("#txtFinNumber").attr("placeholder", "FİN KOD");
+        } else if($("#drpPType").val()=="3")
+        {
+            $("#txtTypeMiqrant").hide();
+            $("#imgF1").hide();
+            $("#birthday").hide();
+            $("#imgF2").hide();
+            $("#imgF3").show();
+            $("#txtFinNumber").attr("placeholder", "FİN KOD");
+        }
+    },
+
+    create_work_id : function()
+    {
+
+        if(this.create_work_id_validation()==false) return;
+
+        $("#hIshNomre").hide();
+        $("#hFinKod").hide();
+        users.waiting_buttons(true);
+        $.post('create_work_id', { create_work_id : "yes", ajax: "yes",
+                                    txtSmsCode:$("#txtSmsCode").val(),
+                                   phone:$("#prefix2").val() + $("#phone2").val(),
+                                   drpFRayon:$("#drpFRayon").val(),
+                                   txtFUnvan:$("txtFUnvan").val(),
+                                   txtEmail:$("txtEmail").val(),
+                                   txtMobil:$("txtMobil").val(),
+                                   drpMobOpt:$("drpMobOpt").val()
+                                 },
+        function(data){
+            users.waiting_buttons(false);
+            if(parseInt(data.code) == 0) {
+                window.location.href = data.redirect_url;
+            } else if(parseInt(data.code) == 2 || parseInt(data.code) == 5) {
+                $("#txtSmsCode").addClass("border_red");
+                $("#txtSmsCode").val("");
+                $("#lbltxtSmsCode").text(data.msg);
+                $("#lbltxtSmsCode").show();
+                toastr.error(data.msg);
+            } else if(parseInt(data.code) == 3) {
+                open_tab("mytab4");
+                toastr.error(data.msg);
+            } else if(parseInt(data.code) == 4) {
+                $("#phone2").addClass("border_red");
+                $("#lblphone").text(data.msg);
+                toastr.error(data.msg);
+            } else if(parseInt(data.code) == 6) {
+                toastr.error(data.msg);
+                open_tab('mytab1');
+            }
+            else
+            {
+                toastr.error(data.msg);
+            }
+
+       },"json"); //,"json"
+
+    },
+
+    temp_login : function()
+    {
+        open_tab("mytab4");
+    },
+
+    create_work_id_validation : function()
+    {
+        var error_msg = "";
+    //    error_msg+= value_check("drpFRayon","Faktiki yaşadığı rayonu seçin <br/>","-1");
+    //    error_msg+= empty_check("txtFUnvan","Faktiki yaşadığı ünvanı daxil edin <br/>");
+    //    error_msg+= empty_check("txtEmail","Email-i düzgün daxil edin <br/>");
+  //      error_msg+= value_check("drpMobOpt","Mobil nömrəni seçin <br/>","-1");
+   //     error_msg+= empty_check("txtMobil","Mobil nömrəni daxil edin <br/>");
+        error_msg+= empty_check("txtSmsCode","Mobil nömrənizə gələn kodu daxil edin <br/>");
+
+        if(error_msg!="")
+        {
+             toastr.error(error_msg, 'Xəta');
+             return false;
+        }
+        else return true;
+    } ,
+
+    login_with_work_id : function()
+    {
+
+    } ,
+
+    btnTabShex_Geri_OnClick : function()
+    {
+        clearInterval(users.interval);
+        open_tab("mytab1");
+         $('html,body').animate({scrollTop:100});
+    },
+
+    btnTabLog_Geri_OnClick : function()
+    {
+
+        if(this.next_tab==1) open_tab("mytab2");
+        else open_tab("mytab1");
+
+         $('html,body').animate({scrollTop:100});
+    },
+
+    waiting_buttons : function(enable)
+    {
+        if(enable)
+        {
+            $(".waitbtn").show();
+            $(".procbtn").hide();
+        }
+        else
+        {
+            $(".waitbtn").hide();
+            $(".procbtn").show();
+        }
+    },
+
+    ish_nomresi_berpa : function()
+    {
+
+        users.waiting_buttons(true);
+        $("#h3Msg").hide();
+        $("#h3Msg2").hide();
+        $.post('recoveryPost', { restore_work_id : "yes", ajax: "yes",
+                                   txtFin : $("#txtFin1").val(),
+                                   drpDay : $("#drpDay").val(),
+                                   drpMonth : $("#drpMonth").val(),
+                                   drpYear : $("#drpYear").val(),
+					drpOperator:$("#drpOperator").val(),
+					txtPhone:$("#txtPhone").val(),
+					captcha:$("#captcha").val(),
+                                 },
+        function(data){
+            users.waiting_buttons(false);
+            if(parseInt(data.code)==0) {
+                $("#h3Msg2").show();
+                $("#h3Msg2").html("SİZİN ŞİFRƏNİZ MOBIL NÖMRƏNİZƏ GÖNDƏRİLDİ");
+                $("#txtFin").val(data.fin);
+                //$("#txtWorkID").val(data.ish_nomresi);
+                $("#divBerpa").hide('fast');
+                users.reload_captcha();
+                $("#divLogin").show('fast');
+            } else {
+                users.reload_captcha();
+                toastr.error(data.message);
+            }
+
+       },"json"); //,"json"
+    }
+}
+
+

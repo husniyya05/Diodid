@@ -1,0 +1,614 @@
+.simple_table
+{
+    width:100%;
+    border-collapse: collapse;
+    border: 0px solid black;
+}
+
+.desc_text
+{
+    font-family: tahoma;
+    font-size : 12px;
+    font-weight: bold;
+}
+.desc_cont
+{
+    font-family: tahoma;
+    font-size : 12px;
+}
+
+.just_text
+{
+    font-family: tahoma;
+    font-size : 14px;
+}
+.small_text{
+    font-family: tahoma;
+    font-size : 11px;
+}
+.just_msg
+{
+    font-family: tahoma;
+    font-size : 14px;
+    color : red ;
+}
+
+.success_msg
+{
+    font-family: tahoma;
+    font-size : 14px;
+    color : green ;
+}
+
+.page_name
+{
+    font-family: tahoma;
+    font-size : 14px;
+    font-weight: bold;
+}
+
+.page_desc
+{
+    font-family: tahoma;
+    font-size : 14px;
+}
+.page_text
+{
+    font-family: tahoma;
+    font-size : 13px;
+}
+.bookmark{
+    font-family: tahoma;
+    font-size : 14px;
+    color: red;
+}
+.category_name{
+    font-family: tahoma;
+    font-size : 14px;
+    font-weight: bold;
+    color:#15B5EC;
+
+}
+
+.category_desc{
+    font-family: tahoma;
+    font-size : 13px;
+    color:black;
+}
+
+.category_img
+{
+
+}
+
+.category_img_div{
+
+}
+
+.category_box{
+    padding-bottom: 10px
+}
+
+
+
+.btn_page_file{
+    width:200px;
+    margin:5px;
+    padding:5px;
+}
+
+.user_full_name{
+
+}
+
+.flowplayer { width: 80%; }
+
+.clear {
+    clear: both;
+}
+
+.cmt_commented_by
+{
+    color:blue;
+    font-size : 11px;
+    font-family:tahoma;
+}
+
+.cmt_comment_text
+{
+    color:black;
+    font-size : 13px;
+    font-family:tahoma;
+}
+
+.cmt_comment_text_bold
+{
+    font-weight: bold;
+    color:black;
+    font-size : 15px;
+    font-family:tahoma;
+}
+
+.cloud_name{
+    color:green;
+    font-family:tahoma;
+}
+
+.left_menu_child{
+    color:#218BD8;
+    font-size : 14px;
+    font-family:tahoma;
+}
+.left_menu_child_empty{
+    color:black;
+    font-size : 14px;
+    font-family:tahoma;
+}
+
+.left_menu_main_mod
+{
+    color:#218BD8;
+    font-size : 15px;
+    font-family:tahoma;
+
+}
+.left_menu_main_mod_empty
+{
+    color:#218BD8;
+    font-size : 15px;
+    font-family:tahoma;
+    cursor: default;
+
+}
+.left_menu_main{
+    color:#218BD8;
+    font-size : 15px;
+    font-family:tahoma;
+
+}
+.left_menu_main_empty{
+    color:#218BD8;
+    font-size : 15px;
+    font-family:tahoma;
+    cursor: default;
+
+}
+
+.lnk_login{
+    color:green;
+    font-size : 15px;
+    font-family:tahoma;
+    font-weight: bold;
+}
+
+.lnk_reg{
+    color:green;
+    font-size : 14px;
+    font-family:tahoma;
+    font-weight: bold;
+}
+
+.lnk_fullname{
+    color:green;
+    font-size : 14px;
+    font-family:tahoma;
+    font-weight: bold;
+}
+
+.lnk_forget{
+    color:green;
+    font-size : 14px;
+    font-family:tahoma;
+    font-weight: bold;
+}
+
+
+.ticket_subject_unread{
+        color:black;
+	font-size : 13px;
+	font-family:tahoma;
+        font-weight : bold;
+}
+
+.ticket_subject_read{
+        color:#606060;
+	font-size : 13px;
+	font-family:tahoma;
+        font-weight : normal;
+}
+
+.comments_box{
+     width:750px !important;
+     height:150px !important;
+}
+.commented_by{
+        color:blue;
+	font-size : 11px;
+	font-family:tahoma;
+}
+.comment_body{
+        color:black;
+	font-size : 15px;
+	font-family:tahoma;
+}
+.lbl_pages
+{
+        color:blue;
+	font-size : 12px;
+	font-family:tahoma;
+}
+
+.lbl_export
+{
+        color:blue;
+	font-size : 12px;
+	font-family:tahoma;
+}
+
+.report_header
+{
+        color:black;
+	font-size : 17px;
+	font-family:tahoma;
+}
+
+.text1
+{
+        color:black;
+	font-size : 13px;
+	font-family:tahoma;
+}
+.c_timer
+{
+    color:red;
+    font-size : 18px;
+    font-family:tahoma;
+}
+.just_msg
+{
+        color:red;
+	font-size : 13px;
+	font-family:tahoma;
+}
+
+
+.gridtable
+{
+    border-width: 0px !important;
+    border: 0px !important;
+    border: none !important;
+    border-style: none !important;
+    border-collapse:collapse !important;
+
+}
+.gridtable td
+{
+    border-width: 0px !important;
+    border: 0px !important;
+    border: none !important;
+    border-style: none !important;
+    border-collapse:collapse !important;
+
+}
+
+table
+{
+    border-width: 0px !important;
+    border: 2px !important;
+    border: none !important;
+    border-style: none !important;
+    border-collapse:collapse !important;
+     padding: 2px;
+}
+
+table  td
+{
+    /*border-width: 0px !important;*/
+    /*border: 2px !important;*/
+    /*border: none !important;*/
+    /*border-style: none !important;*/
+    /*border-collapse:collapse !important;*/
+    /* padding: 2px !important;*/
+}
+table {
+    border-collapse: collapse;
+}
+
+/* remove padding */
+td, th {
+    padding: 0;
+}
+
+.captcha_box
+{
+    width:150px !important;
+    height:30px !important;
+    padding:2px !important;
+    margin: 0px !important;
+}
+
+.comment_button{
+    width:150px !important;
+    height:30px !important;
+    padding:2px !important;
+    margin: 0px !important;
+}
+
+.upload_button
+{
+    padding:5px !important;
+    margin: 5px !important;
+    /*color:black !important;*/
+    font-weight: bold !important;
+}
+
+.download_btn{
+    width:150px !important;
+    height:30px !important;
+    padding:2px !important;
+    margin: 0px !important;
+}
+
+.ticket_drp
+{
+
+}
+
+.t_table1
+{
+    align:right !important;
+    paddgin:0px !important;
+    margin:0px !important;
+}
+.t_table2
+{
+    paddgin:0px !important;
+    margin:0px !important;
+    width:50% !important;
+    align:right !important;
+}
+.t2_td
+{
+    align:right !important;
+    paddgin:0px !important;
+    margin:0px !important;
+}
+.drpViews
+{
+    width:250px;
+}
+
+.btn-my{
+
+}
+
+
+ .tbl_search
+{
+    width:1px;
+    white-space: nowrap;
+    paddgin:0px !important;
+    margin:0px !important;
+    cellspacing:0px !important;
+    cellpadding:0px !important;
+}
+
+
+ .tbl_search td
+{
+   table-layout:fixed;
+   overflow: hidden;
+    white-space: nowrap;
+    paddgin:0px !important;
+    margin:0px !important;
+    cellspacing:0px !important;
+    cellpadding:0px !important;
+}
+
+
+.search_text
+{
+    height: 30px !important;
+}
+
+.search_btn
+{
+    height: 30px !important;
+    padding :5px !important;
+    margin : 5px !important;
+}
+
+.show_all_img
+{
+   width:45px !important;
+    max-width: none;
+}
+
+.search_img
+{
+    width:55px !important;
+    max-width: none;
+}
+
+.btn-my
+{
+     height:60px !important;
+     margin:0px !important;
+}
+
+.btn-mysubmit
+{
+    height:60px !important;
+    margin:0px !important;
+}
+
+.q_not_found
+{
+    color:blue;
+    font-size : 14px;
+    font-family:tahoma;
+}
+
+.btn-own
+{
+    padding:10px !important;
+    margin:2px !important;
+    width:120px;
+}
+
+.border_red
+{
+    border:1px solid red !important;
+}
+
+.mysection{
+    margin:5px !important;
+    padding:5px !important;
+}
+.sizing
+{
+    margin:0px !important;
+    padding:0px !important;
+}
+.marginzero
+{
+    padding:0px !important;
+    margin:0px !important;
+}
+.row-centered {
+     text-align:center !important;
+}
+.mytext
+{
+    background-color: white !important;
+    border-color: black !important;
+}
+.borderred{
+        border-color: red !important;
+    }
+
+.small_input
+{
+    font-size:14px !important;
+    height:35px !important;
+    padding : 3px !important;
+    margin : 0px !important;
+}
+
+.small_drp
+{
+    font-size:13px !important;
+    height:35px !important;
+    padding : 3px !important;
+    margin : 0px !important;
+}
+
+.myred
+{
+    font-color:red !important;
+    color:red !important;
+}
+
+.margin10
+{
+    padding:10px !important;
+    margin:0px !important;
+}
+
+.padding-7
+{
+    padding:7px !important;
+}
+
+.bordereddiv
+{
+    border:1px solid black !important;
+    padding:10px !important;
+}
+
+.margin0_bottom
+{
+    /*
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+    */
+}
+.margin0_top
+{
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+
+.abutton {
+   -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+     font-weight: bold !important;
+}
+
+.grid_head1
+{
+        color:black;
+	font-size : 14px;
+
+
+}
+
+.mysection{
+                margin:5px !important;
+                padding:5px !important;
+            }
+
+.mysection2{
+    margin:10px !important;
+     padding:10px !important;
+}
+
+.btable
+{
+    width:100% !important;
+    border-collapse: collapse !important;
+    border: 1px solid black !important;
+}
+
+
+
+    .table_stat {
+border: 1px solid #226f9c !important;
+border-collapse: collapse;
+text-align: center;
+font-size: 14px;
+}
+.table_stat td,th{
+border: 0.01em solid #226f9c;
+border-collapse: collapse;
+text-align: center;
+padding: 6px;
+}
+.stat_green {
+background: #c0f3d8;
+}
+.stat_red {
+background: #f3c9c0;
+}
+.stat_gray {
+background: #dedede;
+}
+.stat_gray2 {
+background: #f6f6f6;
+}
+
+.netice_text
+{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.xaric_tehsil{
+    font-size:15px;
+    color:yellow;
+    font-family: Tahoma;
+}
