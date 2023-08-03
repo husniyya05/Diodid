@@ -95,3 +95,40 @@ if (age > 18) {
 } else {
   system = false;
 }
+
+
+const name = ["Rahide ", "Husniyye", "Zeka"];
+console.log(name);
+
+//push arrayin sonuna yeni data elave edir
+name.push("Raziye");
+console.table(name);
+
+// pop metodu arrayin sonuncu elementini silir
+name.pop("Uzeyir");
+console.log(name);
+
+//unshift arrayin evveline data elave edir
+name.unshift("Uzeyir")
+console.log(name);
+
+//sort metodu elifba sirasi ile duzur
+name.sort();
+console.log(name);
+
+//concat iki arrayi biribirine birlestirir
+const ages = [22, 23, 19];
+
+const concatMethod = name.concat(ages);
+console.log(concatMethod);
+
+//inculude arrayin icinde herhansisa bir datani axtarirsan;
+const includesMethod = ages.includes(18)
+console.log(includesMethod)
+
+//reverse arrayi tersine cevirir
+console.log(ages.reverse())
+
+
+
+

@@ -547,28 +547,30 @@ h5 {
   background-color: #090c0f;
   .image-box {
     overflow: hidden;
-    // width: 800px;
+    /* width: 800px; */
     height: 100%;
+  
     .img {
       height: 100%;
+  
       img {
         height: 100%;
         width: 100%;
-        filter: brightness(100%) contrast(100%) saturate(25%) blur(0px)
-          hue-rotate(0deg);
+        filter: brightness(100%) contrast(100%) saturate(25%) blur(0px) hue-rotate(0deg);
         cursor: pointer;
+  
         &:hover {
-          @include transition;
+          @include transition; 
           transform: scale(1.2);
           -webkit-transform: scale(1.2);
           -moz-transform: scale(1.2);
           -ms-transform: scale(1.2);
           -o-transform: scale(1.2);
-          filter: brightness(100%) contrast(100%) saturate(100%) blur(0px)
-            hue-rotate(0deg);
+          filter: brightness(100%) contrast(100%) saturate(100%) blur(0px) hue-rotate(0deg);
+          -webkit-filter: brightness(100%) contrast(100%) saturate(100%) blur(0px) hue-rotate(0deg);
         }
         &:not(:hover) {
-          @include transition;
+          @include transition; 
           transform: scale(1);
           -webkit-transform: scale(1);
           -moz-transform: scale(1);
@@ -576,6 +578,7 @@ h5 {
           -o-transform: scale(1);
         }
       }
+  
       border-radius: 10px 0 0 10px;
       -webkit-border-radius: 10px 0 0 10px;
       -moz-border-radius: 10px 0 0 10px;
@@ -583,6 +586,7 @@ h5 {
       -o-border-radius: 10px 0 0 10px;
     }
   }
+  
   .more {
     border: 1px solid #15c7e7;
     width: 190px;
